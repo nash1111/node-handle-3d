@@ -1,0 +1,1 @@
+export const readSTL = (filePath: string): string => filePath;

@@ -3,8 +3,7 @@ const fs = require("fs");
 
 const EOF_KEYWORD_OF_ASCII_STL: string = "endsolid";
 const KEYWORD_OF_VERTEX: string = "vertex";
-const KEYWORD_OF_OUTER_LOOP: string = "outer loop";
-const KEYWORD_OF_END_LOOP: string = "endloop";
+const KEYWORD_START_STL_NAME: string = "solid ";
 const KEYWORD_OF_FACETS_NORMAL_FACET: string = "facet";
 const KEYWORD_OF_FACETS_NORMAL_NORMAL: string = "normal";
 export const readSTL = (filePath: string): string => {
@@ -15,7 +14,6 @@ export const readSTL = (filePath: string): string => {
 // see https://ja.wikipedia.org/wiki/Standard_Triangulated_Language
 
 interface ParsedSTL {
-    filePath: string;
     name?: string;
     isBinary: boolean;
     isASCII: boolean;
@@ -36,15 +34,19 @@ interface VertexCoordinates {
     z: number;
 }
 
-export const readASCIISTL = (filePath: string): ParsedSTL => {
-    const text: string[] = fs.readFileSync(filePath).toString().split(os.EOL);
-    const name = text[0].split(' ')[1];
-    const endLineIndex = getKeywordLine(text, EOF_KEYWORD_OF_ASCII_STL);
-    const normalVectors = getNormalVectors(text, endLineIndex);
-    const vertexCoordinates = getVertexCoordinates(text, endLineIndex);
+export const readASCIISTLFromFilePath = (filePath: string): ParsedSTL => {
+    const texts: string = fs.readFileSync(filePath).toString();
+    return readASCIISTL(texts);
+}
+
+export const readASCIISTL = (texts: string): ParsedSTL => {
+    const lines = texts.split(os.EOL)
+    const name = lines[0].replace(KEYWORD_START_STL_NAME, "");
+    const endLineIndex = getKeywordLine(lines, EOF_KEYWORD_OF_ASCII_STL);
+    const normalVectors = getNormalVectors(lines, endLineIndex);
+    const vertexCoordinates = getVertexCoordinates(lines, endLineIndex);
 
     let parsedSTL: ParsedSTL = {
-        filePath: filePath,
         name: name,
         isBinary: false,
         isASCII: true,
@@ -52,7 +54,6 @@ export const readASCIISTL = (filePath: string): ParsedSTL => {
         normalVectors: normalVectors,
         vertexCoordinates: vertexCoordinates,
     }
-    console.log(parsedSTL);
     return parsedSTL;
 }
 
@@ -69,9 +70,8 @@ export const getKeywordLine = (texts: string[], keyWord: string): number => {
 const getNormalVectors = (texts: string[], numEOF: number): NormalVector[] => {
     let normalVectors: NormalVector[] = [];
     for (let ith = 1; ith < numEOF; ith++) {
-        if (texts[ith].includes(KEYWORD_OF_FACETS_NORMAL_FACET) && texts[ith].includes(KEYWORD_OF_FACETS_NORMAL_NORMAL) ) {
+        if (texts[ith].includes(KEYWORD_OF_FACETS_NORMAL_FACET) && texts[ith].includes(KEYWORD_OF_FACETS_NORMAL_NORMAL)) {
             const line = removeKeyords(texts[ith], KEYWORD_OF_FACETS_NORMAL_FACET, KEYWORD_OF_FACETS_NORMAL_NORMAL);
-            console.log("line="+line)
             normalVectors.push(
                 {
                     x: Number(line[0]),
@@ -107,7 +107,6 @@ const removeKeyords = (text: string, ...keywords: string[]): string[] => {
     const keywordsRemovedText: string[] = [];
 
     for (const keyword of keywords) {
-        console.log(keyword);
         for (let ith = 1; ith < parsedText.length; ith++) {
             if (parsedText[ith] == keyword) {
                 parsedText.splice(ith, 1);

@@ -1,0 +1,13 @@
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  run-vitetest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js environment
+      - uses: actions/setup-node@v3.3.0
+      - run: npm i
+      - run: npm run testrun

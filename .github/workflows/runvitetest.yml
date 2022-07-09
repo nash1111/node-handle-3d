@@ -7,7 +7,9 @@ jobs:
   run-vitetest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3.3.0
-        run: |
-          npm i
-          npm run testrun
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: npm i
+    - run: npm run testrun

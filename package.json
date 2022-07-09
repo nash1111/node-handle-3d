@@ -1,0 +1,22 @@
+{
+  "name": "handle-3d",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "testrun": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nash1111/node-handle-3d.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nash1111/node-handle-3d/issues"
+  },
+  "homepage": "https://github.com/nash1111/node-handle-3d#readme"
+}

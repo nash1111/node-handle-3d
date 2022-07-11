@@ -1,35 +1,23 @@
+name: runvitetest
+
 on:
   push:
-    branches: 
-      - main
+    branches: [main, develop, feature/**]
+  pull_request:
+    branches: [main, develop]
 
 jobs:
-  run-vitetest-on-ubuntu:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [10.x, 12.x, 14.x, 15.x, 16.x]
     steps:
+    - run: Runs on ${{ matrix.os }}
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
-        node-version: 16
-    - run: npm i vitest
-    - run: npm run testrun
-
-  run-vitetest-on-windows:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - run: npm i vitest
-    - run: npm run testrun
-
-  run-vitetest-on-mac:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
+        node-version: ${{ matrix.node-version }}
     - run: npm i vitest
     - run: npm run testrun

@@ -6,7 +6,6 @@
 - [ ] support gltf file
 - [ ] support obj file
 - [ ] support vtk file
-- [ ] 
 - [ ] add validator
   - [ ] stl validator
   - [ ] gltf validator

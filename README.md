@@ -1,6 +1,9 @@
 # node-handle-3d
 
 #### TODO
+- [ ] linter setting
+- [ ] refactor interface
+- [ ] Make coordinates be held as numbers rather than strings, but without loss of precision
 - [ ] node-cli support
 - [ ] support binary stl file
 - [ ] support gltf file

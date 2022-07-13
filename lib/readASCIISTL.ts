@@ -23,15 +23,15 @@ interface ParsedSTL {
 }
 
 interface NormalVector {
-    x: number;
-    y: number;
-    z: number;
+    x: string;
+    y: string;
+    z: string;
 }
 
 interface VertexCoordinates {
-    x: number;
-    y: number;
-    z: number;
+    x: string;
+    y: string;
+    z: string;
 }
 
 export const readASCIISTLFromFilePath = (filePath: string): ParsedSTL => {
@@ -74,9 +74,9 @@ const getNormalVectors = (texts: string[], numEOF: number): NormalVector[] => {
             const line = removeKeyords(texts[ith], KEYWORD_OF_FACETS_NORMAL_FACET, KEYWORD_OF_FACETS_NORMAL_NORMAL);
             normalVectors.push(
                 {
-                    x: Number(line[0]),
-                    y: Number(line[1]),
-                    z: Number(line[2]),
+                    x: line[0],
+                    y: line[1],
+                    z: line[2],
                 }
             )
         }
@@ -91,9 +91,9 @@ const getVertexCoordinates = (texts: string[], numEOF: number): VertexCoordinate
             const line = removeKeyords(texts[ith], KEYWORD_OF_VERTEX);
             vertexCoordinates.push(
                 {
-                    x: Number(line[0]),
-                    y: Number(line[1]),
-                    z: Number(line[2]),
+                    x: line[0],
+                    y: line[1],
+                    z: line[2],
                 }
             )
         }

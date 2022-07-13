@@ -37,9 +37,9 @@ describe("readASCIISTL", () => {
     expect(result.name).toStrictEqual(expectedName);
     console.log("aaaa" + sampleASCIISTL)
     expect(result.normalVectors).toStrictEqual([{
-      x: 0.06274641205437469,
-      y: -0.037362288100243335,
-      z: -0.9973299089078885
+      x: "0.062746412054374687",
+      y: "-0.037362288100243335",
+      z: "-0.99732990890788853"
     }]);
   });
 })

@@ -30,3 +30,7 @@ Run test
 ```
 npm run testrun
 ```
+
+#### Files
+samples/minimalgltf.gltf was generated using this link
+https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_003_MinimalGltfFile.md
